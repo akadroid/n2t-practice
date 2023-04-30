@@ -15,5 +15,18 @@ CHIP RAM8 {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    // To determine where to write, the load input goes through a demultiplexor
+    Register(in=in, load=DMuxOut0, out=regOut0);
+    Register(in=in, load=DMuxOut1, out=regOut1);
+    Register(in=in, load=DMuxOut2, out=regOut2);
+    Register(in=in, load=DMuxOut3, out=regOut3);
+    Register(in=in, load=DMuxOut4, out=regOut4);
+    Register(in=in, load=DMuxOut5, out=regOut5);
+    Register(in=in, load=DMuxOut6, out=regOut6);
+    Register(in=in, load=DMuxOut7, out=regOut7);
+
+    DMux8Way(in=load, sel=address, a=DMuxOut0, b=DMuxOut1, c=DMuxOut2, d=DMuxOut3, e=DMuxOut4, f=DMuxOut5, g=DMuxOut6, h=DMuxOut7);
+
+    // Mux chooses which register gets outputed
+    Mux8Way16(a=regOut0, b=regOut1, c=regOut2, d=regOut3, e=regOut4, f=regOut5, g=regOut6, h=regOut7, sel=address, out=out);
 }

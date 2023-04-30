@@ -16,5 +16,20 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    /*  I have to implement an if-elseif-else statement using gates
+    **  So the order of the gates should be inc->load->reset
+    */
+
+    // increment
+    Inc16(in=regOut, out=incOut);
+    Mux16(a=regOut, b=incOut, sel=inc, out=muxOut1);
+
+    // load
+    Mux16(a=muxOut1, b=in, sel=load, out=muxOut2);
+
+    // reset
+    Mux16(a=muxOut2, b=false, sel=reset, out=muxOut3);
+    
+    // register
+    Register(in=muxOut3, load=true, out=regOut, out=out);
 }
