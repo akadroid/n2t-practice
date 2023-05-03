@@ -10,3 +10,33 @@
 // R0 >= 0, R1 >= 0, and R0*R1 < 32768.
 
 // Put your code here.
+    // product = 0
+    @product
+    M=0
+(LOOP)
+    // if (R1 == 0) goto STOP
+    @R1
+    D=M
+    @STOP
+    D;JEQ
+
+    // multiply
+    @R0
+    D=M
+    @product
+    M=M+D
+    @R1
+    M=M-1
+    // goto LOOP
+    @LOOP
+    0;JMP
+
+(STOP)
+    // R2 = product
+    @product
+    D=M
+    @R2
+    M=D
+(END)
+    @END
+    0;JMP
